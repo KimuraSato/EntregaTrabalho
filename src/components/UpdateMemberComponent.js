@@ -2,6 +2,14 @@ import React, { useState, useEffect } from "react";
 import MemberService from "../services/MemberService";
 import { useNavigate, useParams } from "react-router-dom";
 
+const placeholderbandList = [
+  "Sem banda",
+  "StarShade",
+  "Covercats",
+  "Stumbling Grace",
+  "Night Drive",
+];
+
 const UpdateMemberComponent = () => {
   const { id } = useParams();
   const [nome, setName] = useState("");
@@ -12,7 +20,7 @@ const UpdateMemberComponent = () => {
   useEffect(() => {
     MemberService.getMemberById(id).then((res) => {
       const Member = res.data;
-      setName(Member.name);
+      setName(Member.nome);
       setidBanda(Member.idBanda);
     });
   }, [id]);
@@ -34,11 +42,11 @@ const UpdateMemberComponent = () => {
       <div className="container">
         <div className="row">
           <div className="card col-md-6 offset-md-3 offset-md-3">
-            <h3 className="text-center">Update Member</h3>
+            <h3 className="text-center">Atualizar Integrante</h3>
             <div className="card-body">
               <form>
                 <div className="form-group">
-                  <label> Member Name: </label>
+                  <label> Nome: </label>
                   <input
                     placeholder="Name"
                     name="name"
@@ -49,23 +57,27 @@ const UpdateMemberComponent = () => {
                 </div>
                 <br />
                 <div className="form-group">
+                  <label> Banda: </label>
                   <select
-                    class="form-select"
+                    className="form-select"
                     aria-label="Default select example"
                     value={idBanda}
                     onChange={(e) => setidBanda(e.target.value)}
                     defaultValue="-1"
                   >
-                    <option value="-1">sem banda</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    {placeholderbandList.map(function (object, i) {
+                      return (
+                        <option key={i} value={i}>
+                          {object}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
                 <br />
 
                 <button className="btn btn-success" onClick={updateMember}>
-                  Save
+                  Atualizar
                 </button>
               </form>
             </div>

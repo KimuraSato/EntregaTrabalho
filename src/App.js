@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import ProductListComponent from './components/ProductListComponent';
-import AddProductComponent from './components/AddMemberComponent';
-import UpdateProductComponent from './components/UpdateProductComponent';
+import MemberListComponent from './components/MemberListComponent';
+import AddMemberComponent from './components/AddMemberComponent';
+import UpdateMemberComponent from './components/UpdateMemberComponent';
 import IndexComponent from './components/index'
 
 const App = () => {
@@ -13,12 +13,12 @@ const App = () => {
           <Route path='' element={<IndexComponent/>} />
 
           <Route path='members'>
-            <Route path="/members" element={<ProductListComponent />} />
-            <Route path="list" element={<ProductListComponent />} />
-            <Route path="add" element={<AddProductComponent />} />
+            <Route path="/members" element={<MemberListComponent />} />
+            <Route path="list" element={<MemberListComponent />} />
+            <Route path="add" element={<AddMemberComponent />} />
             <Route
               path="update/:id"
-              element={<UpdateProductComponent />}
+              element={<UpdateMemberComponent />}
             />
           </Route>
         </Routes>

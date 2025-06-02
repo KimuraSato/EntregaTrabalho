@@ -9,28 +9,26 @@ const IndexComponent = () => {
         <h1>Index</h1>
 
         <a href="/members">
-          <button className="btn btn-primary">Members</button>
+          <button className="btn btn-primary">Integrantes</button>
         </a>
         <br />
-        <a href="/members">
-          <button>Hello</button>
-        </a>
+
+        <button className="btn btn-primary " disabled>
+          Bandas
+        </button>
+
         <br />
-        <a href="/members">
-          <button>Hello</button>
-        </a>
+
+        <button className="btn btn-primary "disabled>Patrocinios</button>
+
         <br />
-        <a href="/members">
-          <button>Hello</button>
-        </a>
+
+        <button className="btn btn-primary" disabled>Shows</button>
+
         <br />
-        <a href="/members">
-          <button>Hello</button>
-        </a>
-        <br />
-        <a href="/members">
-          <button>Hello</button>
-        </a>
+
+        <button className="btn btn-primary" disabled>Produtoras</button>
+
         <br />
       </div>
     );
