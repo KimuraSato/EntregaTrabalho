@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import MemberService from '../services/MemberService';
 import { Link } from 'react-router-dom';
 
-const placeholderbandList = ["",
+const placeholderbandList = [
+  "Sem banda",
   "StarShade",
   "Covercats",
   "Stumbling Grace",
   "Night Drive",
-]; 
+];
 
 const MemberListComponent = () => {
     const [members, setMembers] = useState([]);

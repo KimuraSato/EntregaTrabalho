@@ -8,7 +8,6 @@ const placeholderbandList = [
   "Covercats",
   "Stumbling Grace",
   "Night Drive",
-  
 ];
 
 const AddMemberComponent = () => {
