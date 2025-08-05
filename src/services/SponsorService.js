@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_API_URL = "http://localhost:8080/api/integrantes";
+const BASE_API_URL = "http://localhost:8080/api/patrocinios";
 
 
 class MemberService {
@@ -12,16 +12,16 @@ class MemberService {
         return axios.post(BASE_API_URL, member);
     }
 
-    getMemberById(memberId) {
-        return axios.get(`${BASE_API_URL}/${memberId}`);
+    getMemberById(sponsorId) {
+        return axios.get(`${BASE_API_URL}/${sponsorId}`);
     }
 
-    updateMember(member, memberId) {
-        return axios.put(`${BASE_API_URL}/${memberId}`, member);
+    updateMember(sponsor, sponsorId) {
+        return axios.put(`${BASE_API_URL}/${sponsorId}`, sponsor);
     }
 
-    deleteMember(member, memberId) {
-        return axios.delete(`${BASE_API_URL}/${memberId}`, {
+    deleteMember(member, sponsorId) {
+        return axios.delete(`${BASE_API_URL}/${sponsorId}`, {
           data:member 
         });
                

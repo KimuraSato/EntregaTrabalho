@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import MemberService from '../services/MemberService';
+import MemberService from '../../services/MemberService';
 import { Link } from 'react-router-dom';
 
 const placeholderbandList = [

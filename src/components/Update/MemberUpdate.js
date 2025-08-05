@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import MemberService from "../services/MemberService";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import MemberService from "../../services/MemberService";
+import { useNavigate, useParams } from "react-router-dom";
 
 const placeholderbandList = [
   "Sem banda",
@@ -10,18 +10,29 @@ const placeholderbandList = [
   "Night Drive",
 ];
 
-const AddMemberComponent = () => {
+const UpdateMemberComponent = () => {
+  const { id } = useParams();
   const [nome, setName] = useState("");
   const [idBanda, setidBanda] = useState("");
-  // const [price, setPrice] = useState('');
+
   const navigate = useNavigate();
 
-  const saveMember = (e) => {
+  useEffect(() => {
+    MemberService.getMemberById(id).then((res) => {
+      const Member = res.data;
+      setName(Member.nome);
+      setidBanda(Member.idBanda);
+    });
+  }, [id]);
+
+  const updateMember = (e) => {
     e.preventDefault();
     // Convert idBanda to a number (Long in Java equivalent)
     const memberidBanda = parseInt(idBanda, 10);
-    const Member = { nome, idBanda: memberidBanda }; // Use the converted value
-    MemberService.createMember(Member).then(() => {
+    const Member = {id, nome, idBanda: memberidBanda }; // Use the converted value
+    console.log(id)
+    console.log(Member)
+    MemberService.updateMember(Member, id).then(() => {
       navigate("/members");
     });
   };
@@ -31,7 +42,7 @@ const AddMemberComponent = () => {
       <div className="container">
         <div className="row">
           <div className="card col-md-6 offset-md-3 offset-md-3">
-            <h3 className="text-center">Adicionar Integrante</h3>
+            <h3 className="text-center">Atualizar Integrante</h3>
             <div className="card-body">
               <form>
                 <div className="form-group">
@@ -48,10 +59,11 @@ const AddMemberComponent = () => {
                 <div className="form-group">
                   <label> Banda: </label>
                   <select
-                    class="form-select"
+                    className="form-select"
                     aria-label="Default select example"
                     value={idBanda}
                     onChange={(e) => setidBanda(e.target.value)}
+                    defaultValue="-1"
                   >
                     {placeholderbandList.map(function (object, i) {
                       return (
@@ -64,8 +76,8 @@ const AddMemberComponent = () => {
                 </div>
                 <br />
 
-                <button className="btn btn-success" onClick={saveMember}>
-                  Adicionar
+                <button className="btn btn-success" onClick={updateMember}>
+                  Atualizar
                 </button>
               </form>
             </div>
@@ -76,4 +88,4 @@ const AddMemberComponent = () => {
   );
 };
 
-export default AddMemberComponent;
+export default UpdateMemberComponent;
