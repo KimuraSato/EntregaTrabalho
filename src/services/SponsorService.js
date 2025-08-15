@@ -3,30 +3,30 @@ import axios from 'axios';
 const BASE_API_URL = "http://localhost:8080/api/patrocinios";
 
 
-class MemberService {
-    getMembers() {
+class SponsorService {
+    getSponsors() {
         return axios.get(BASE_API_URL);
     }
 
-    createMember(member) {
-        return axios.post(BASE_API_URL, member);
+    createSponsor(sponsor) {
+        return axios.post(BASE_API_URL, sponsor);
     }
 
-    getMemberById(sponsorId) {
+    getSponsorById(sponsorId) {
         return axios.get(`${BASE_API_URL}/${sponsorId}`);
     }
 
-    updateMember(sponsor, sponsorId) {
+    updateSponsor(sponsor, sponsorId) {
         return axios.put(`${BASE_API_URL}/${sponsorId}`, sponsor);
     }
 
-    deleteMember(member, sponsorId) {
+    deleteSponsor(sponsor, sponsorId) {
         return axios.delete(`${BASE_API_URL}/${sponsorId}`, {
-          data:member 
+          data:sponsor 
         });
                
     }
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default new MemberService();
+export default new SponsorService();

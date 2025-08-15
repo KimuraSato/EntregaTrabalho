@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import MemberService from '../../services/MemberService';
+import { SponsorService } from '../../services';
 import { Link } from 'react-router-dom';
 
 const placeholderbandList = [
@@ -10,21 +10,21 @@ const placeholderbandList = [
   "Night Drive",
 ];
 
-const MemberList = () => {
-    const [members, setMembers] = useState([]);
+const SponsorList = () => {
+    const [sponsors, setSponsors] = useState([]);
 
     useEffect(() => {
-        MemberService.getMembers().then((res) => {
-            setMembers(res.data);
+        SponsorService.getSponsors().then((res) => {
+            setSponsors(res.data);
         });
     }, []);
 
     return (
       <div>
-        <h2 className="text-center">Lista de Integrantes</h2>
+        <h2 className="text-center">Lista de Patrocinios</h2>
         <div className="row">
           <Link to="add" className="btn btn-primary">
-            Adicionar Integrante
+            Adicionar Patrocinio
           </Link>
         </div>
         <div className="row">
@@ -38,22 +38,22 @@ const MemberList = () => {
               </tr>
             </thead>
             <tbody>
-              {members.map((member) => (
-                <tr key={member.id}>
-                  <td>{member.id}</td>
-                  <td>{member.nome}</td>
+              {sponsors.map((sponsor) => (
+                <tr key={sponsor.id}>
+                  <td>{sponsor.id}</td>
+                  <td>{sponsor.nome}</td>
                   <td>
-                    {member.idBanda} ({placeholderbandList[member.idBanda]})
+                    {sponsor.idBanda} ({placeholderbandList[sponsor.idBanda]})
                   </td>
                   <td>
-                    <Link to={`update/${member.id}`} className="btn btn-info">
+                    <Link to={`update/${sponsor.id}`} className="btn btn-info">
                       Atualizar
                     </Link>
                     <button
                       className="btn btn-danger"
                       onClick={() =>
-                        MemberService.deleteMember(member, member.id).then(() =>
-                          setMembers(members.filter((p) => p.id !== member.id))
+                        SponsorService.deleteSponsor(sponsor, sponsor.id).then(() =>
+                          setSponsors(sponsors.filter((p) => p.id !== sponsor.id))
                         )
                       }
                     >
@@ -69,4 +69,4 @@ const MemberList = () => {
     );
 };
 
-export default MemberList;
+export default SponsorList;

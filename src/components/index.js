@@ -13,21 +13,27 @@ const IndexComponent = () => {
         </a>
         <br />
 
-        <button className="btn btn-primary " disabled>
-          Bandas
+        <a href="/bands">
+          <button className="btn btn-primary " >
+            Bandas
+          </button>
+        </a>
+        <br />
+
+        <a href="/sponsors">
+          <button className="btn btn-primary ">Patrocinios</button>
+        </a>
+        <br />
+
+        <button className="btn btn-primary" disabled>
+          Shows
         </button>
 
         <br />
 
-        <button className="btn btn-primary "disabled>Patrocinios</button>
-
-        <br />
-
-        <button className="btn btn-primary" disabled>Shows</button>
-
-        <br />
-
-        <button className="btn btn-primary" disabled>Produtoras</button>
+        <button className="btn btn-primary" disabled>
+          Produtoras
+        </button>
 
         <br />
       </div>
