@@ -33,7 +33,8 @@ const SponsorList = () => {
               <tr>
                 <th>id</th>
                 <th>Nome</th>
-                <th>banda</th>
+                <th>CPF/CNPJ</th>
+                <th>Contato</th>
                 <th>Ações</th>
               </tr>
             </thead>
@@ -52,8 +53,11 @@ const SponsorList = () => {
                     <button
                       className="btn btn-danger"
                       onClick={() =>
-                        SponsorService.deleteSponsor(sponsor, sponsor.id).then(() =>
-                          setSponsors(sponsors.filter((p) => p.id !== sponsor.id))
+                        SponsorService.deleteSponsor(sponsor, sponsor.id).then(
+                          () =>
+                            setSponsors(
+                              sponsors.filter((p) => p.id !== sponsor.id)
+                            )
                         )
                       }
                     >

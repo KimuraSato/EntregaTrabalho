@@ -63,10 +63,10 @@ const BandList = () => {
             <tr>
               <th>id</th>
               <th>Nome</th>
-              <th>Nacao</th>
-              <th>Email</th>
+              <th>Genero Musical</th>
+              <th>Nacao de origem</th>
               <th>Data de criação</th>
-              <th>verificado</th>
+              <th>Status</th>
               <th>Ações</th>
             </tr>
           </thead>
@@ -77,7 +77,9 @@ const BandList = () => {
                 <td>{band.nome}</td>
                 <td>
                   {countries.map(function (object, i) {
-                    if(object.a == band.nacao){return(object.b)}
+                    if (object.a == band.nacao) {
+                      return object.b;
+                    }
                   })}
                 </td>
                 <th>{band.email}</th>

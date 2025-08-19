@@ -33,7 +33,13 @@ const MemberList = () => {
               <tr>
                 <th>id</th>
                 <th>Nome</th>
-                <th>banda</th>
+                <th>Banda</th>
+                <th>Nome Artistico</th>
+                <th>CPF</th>
+                <th>Data de nascimento</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th>Data de entrada na banda</th>
                 <th>Ações</th>
               </tr>
             </thead>
