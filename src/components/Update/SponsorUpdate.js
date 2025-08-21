@@ -1,37 +1,43 @@
 import React, { useState, useEffect } from "react";
-import { SponsorService } from "../../services";
+import { SponsorService,BandService } from "../../services";
 import { useNavigate, useParams } from "react-router-dom";
 
-const placeholderbandList = [
-  "Sem banda",
-  "StarShade",
-  "Covercats",
-  "Stumbling Grace",
-  "Night Drive",
-];
+
 
 const SponsorUpdate = () => {
   const { id } = useParams();
-  const [nome, setName] = useState("");
-  const [idBanda, setidBanda] = useState("");
+  const [Bands, setBands] = useState([]);
+  
+  const [nome, setnome] = useState("");
+  const [idBanda, setidBanda] = useState(0);
+  const [cpf, setcpf] = useState(0);
+  const [contatoOficial, setcontatoOficial] = useState("");
 
   const navigate = useNavigate();
 
   useEffect(() => {
     SponsorService.getSponsorById(id).then((res) => {
       const Sponsor = res.data;
-      setName(Sponsor.nome);
+      setnome(Sponsor.nome);
       setidBanda(Sponsor.idBanda);
+      setcpf(Sponsor.cpf);
+      setcontatoOficial(Sponsor.contatoOficial);
+     
     });
   }, [id]);
 
+  useEffect(() => {
+            BandService.getBands().then((res) => {
+              setBands(res.data);
+              
+            });
+          }, []);
+
   const updateSponsor = (e) => {
     e.preventDefault();
-    // Convert idBanda to a number (Long in Java equivalent)
-    const sponsoridBanda = parseInt(idBanda, 10);
-    const Sponsor = {id, nome, idBanda: sponsoridBanda }; // Use the converted value
-    console.log(id)
-    console.log(Sponsor)
+    
+    const Sponsor = {id,nome,idBanda,cpf,contatoOficial }; 
+    
     SponsorService.updateSponsor(Sponsor, id).then(() => {
       navigate("/sponsors");
     });
@@ -52,30 +58,55 @@ const SponsorUpdate = () => {
                     name="name"
                     className="form-control"
                     value={nome}
-                    onChange={(e) => setName(e.target.value)}
+                    onChange={(e) => setnome(e.target.value)}
                   />
                 </div>
                 <br />
                 <div className="form-group">
                   <label> Banda: </label>
                   <select
-                    className="form-select"
+                    class="form-select"
                     aria-label="Default select example"
                     value={idBanda}
                     onChange={(e) => setidBanda(e.target.value)}
-                    defaultValue="-1"
                   >
-                    {placeholderbandList.map(function (object, i) {
+                    <option key={0} defaultValue>
+                      Selecione uma banda
+                    </option>
+                    {Bands.map(function (object, i) {
                       return (
-                        <option key={i} value={i}>
-                          {object}
+                        <option key={i + 1} value={object.id}>
+                          {object.nome}
                         </option>
                       );
                     })}
                   </select>
                 </div>
                 <br />
+                <div className="form-group">
+                  <label> CPF: </label>
+                  <input
+                    placeholder="000.000.000-00"
+                    type="number"
+                    name="name"
+                    className="form-control"
+                    value={cpf}
+                    onChange={(e) => setcpf(e.target.value)}
+                  />
+                </div>
 
+                <br />
+                <div className="form-group">
+                  <label> contatoOficial: </label>
+                  <input
+                    placeholder="Contato"
+                    name="contato"
+                    className="form-control"
+                    value={contatoOficial}
+                    onChange={(e) => setcontatoOficial(e.target.value)}
+                  />
+                </div>
+                <br />
                 <button className="btn btn-success" onClick={updateSponsor}>
                   Atualizar
                 </button>

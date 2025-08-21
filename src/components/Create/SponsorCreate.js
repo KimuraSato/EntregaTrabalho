@@ -1,30 +1,41 @@
-import React, { useState } from "react";
-import { SponsorService } from "../../services";
+import React, { useState, useEffect } from "react";
+import { SponsorService , BandService } from "../../services";
 import { useNavigate } from "react-router-dom";
 
-const placeholderbandList = [
-  "Sem banda",
-  "StarShade",
-  "Covercats",
-  "Stumbling Grace",
-  "Night Drive",
-];
+
+/**
+    Long id;
+    String nome;
+    Long idBanda;
+    Long CPF;
+    String contatoOficial;
+ */
 
 const SponsorCreate = () => {
-  const [nome, setName] = useState("");
-  const [idBanda, setidBanda] = useState("");
-  // const [price, setPrice] = useState('');
+  const [Bands, setBands] = useState([]);
+
+  const [nome, setnome] = useState("");
+  const [idBanda, setidBanda] = useState(0);
+  const [cpf, setcpf] = useState(0);
+  const [contatoOficial, setcontatoOficial] = useState("");
+
   const navigate = useNavigate();
 
   const saveSponsor = (e) => {
     e.preventDefault();
-    // Convert idBanda to a number (Long in Java equivalent)
-    const sponsoridBanda = parseInt(idBanda, 10);
-    const Sponsor = { nome, idBanda: sponsoridBanda }; // Use the converted value
+    
+    const Sponsor = { nome, idBanda, cpf, contatoOficial }; 
     SponsorService.createSponsor(Sponsor).then(() => {
       navigate("/sponsors");
     });
   };
+
+  useEffect(() => {
+          BandService.getBands().then((res) => {
+            setBands(res.data);
+            
+          });
+        }, []);
 
   return (
     <div>
@@ -41,7 +52,7 @@ const SponsorCreate = () => {
                     name="name"
                     className="form-control"
                     value={nome}
-                    onChange={(e) => setName(e.target.value)}
+                    onChange={(e) => setnome(e.target.value)}
                   />
                 </div>
                 <br />
@@ -53,17 +64,43 @@ const SponsorCreate = () => {
                     value={idBanda}
                     onChange={(e) => setidBanda(e.target.value)}
                   >
-                    {placeholderbandList.map(function (object, i) {
+                    <option key={0} defaultValue>
+                      Selecione uma banda
+                    </option>
+                    {Bands.map(function (object, i) {
                       return (
-                        <option key={i} value={i}>
-                          {object}
+                        <option key={i + 1} value={object.id}>
+                          {object.nome}
                         </option>
                       );
                     })}
                   </select>
                 </div>
                 <br />
+                <div className="form-group">
+                  <label> CPF: </label>
+                  <input
+                    placeholder="000.000.000-00"
+                    type="number"
+                    name="name"
+                    className="form-control"
+                    value={cpf}
+                    onChange={(e) => setcpf(e.target.value)}
+                  />
+                </div>
 
+                <br />
+                <div className="form-group">
+                  <label> contatoOficial: </label>
+                  <input
+                    placeholder="Contato"
+                    name="contato"
+                    className="form-control"
+                    value={contatoOficial}
+                    onChange={(e) => setcontatoOficial(e.target.value)}
+                  />
+                </div>
+                <br />
                 <button className="btn btn-success" onClick={saveSponsor}>
                   Adicionar
                 </button>
