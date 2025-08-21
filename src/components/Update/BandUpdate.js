@@ -1,18 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { BandService,CountryService } from "../../services";
+import {
+  BandService,
+  CountryService,
+  GenreService,
+  StatusService,
+} from "../../services";
 import { useNavigate, useParams } from "react-router-dom";
 
 
 
 const BandCreate = () => {
   const { id } = useParams();
-  const [countries, setCountries] = useState([]);
-  const [nome, setName] = useState("");
-  const [nacao, setNacao] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [date, setDate] = useState("");
-  const [verified, setVerified] = useState(false);
+  const [Countries, setCountries] = useState([]);
+    const [Genres, setGenre] = useState([]);
+    const [Statuses, setStatus] = useState([]);
+  
+    const [nome, setnome] = useState("");
+    const [nacao, setnacao] = useState("");
+    const [generoMusical, setgeneroMusical] = useState("");
+    const [dataCriacao, setdataCriacao] = useState("");
+    const [status, setstatus] = useState("");
+    
+  
   const navigate = useNavigate();
 
   
@@ -21,19 +30,26 @@ const BandCreate = () => {
   useEffect(() => {
     BandService.getBandById(id).then((res) => {
       const Band = res.data;
-      setName(Band.nome)
-  setNacao(Band.nacao)
-  setEmail(Band.email)
-  setPassword(Band.senha)
-  setDate(Band.dataNascimento)
-  setVerified(Band.verificado)
+      setnome(Band.nome);
+      setnacao(Band.nacao);
+      setgeneroMusical(Band.generoMusical);
+      setdataCriacao(Band.dataCriacao);
+      setstatus(Band.status);
+      
     });
   }, [id]);
 
   const saveBand = (e) => {
     e.preventDefault();
-    const Band = {id, nome, nacao, email, senha:password, dataNascimento:date, verificado:verified }; // Use the converted value
-    console.log(Band);
+    const Band = {
+      id,
+      nome,
+      nacao,
+      generoMusical,
+      dataCriacao,
+      status,
+      
+    };
     BandService.updateBand(Band,id).then(() => {
       navigate("/bands");
     });
@@ -42,10 +58,22 @@ const BandCreate = () => {
   
 
   useEffect(() => {
-    CountryService.getCountryPairs().then((res) => {
-      setCountries(res.data);
-    });
-  }, []);
+      CountryService.getCountryPairs().then((res) => {
+        setCountries(res.data);
+      });
+    }, []);
+  
+    useEffect(() => {
+      GenreService.getGenrePairs().then((res) => {
+        setGenre(res.data);
+      });
+    }, []);
+  
+    useEffect(() => {
+      StatusService.getStatusPairs().then((res) => {
+        setStatus(res.data);
+      });
+    }, []);
       
    
 
@@ -64,9 +92,10 @@ const BandCreate = () => {
                     name="name"
                     className="form-control"
                     value={nome}
-                    onChange={(e) => setName(e.target.value)}
+                    onChange={(e) => setnome(e.target.value)}
                   />
                 </div>
+
                 <br />
                 <div className="form-group">
                   <label> Nacao: </label>
@@ -74,9 +103,12 @@ const BandCreate = () => {
                     class="form-select"
                     aria-label="Default select example"
                     value={nacao}
-                    onChange={(e) => setNacao(e.target.value)}
+                    onChange={(e) => setnacao(e.target.value)}
                   >
-                    {countries.map(function (object, i) {
+                    <option key={0} defaultValue>
+                      Selecione uma Nação
+                    </option>
+                    {Countries.map(function (object, i) {
                       return (
                         <option key={object.a} value={object.a}>
                           {object.b}
@@ -85,29 +117,29 @@ const BandCreate = () => {
                     })}
                   </select>
                 </div>
+
                 <br />
                 <div className="form-group">
-                  <label> Email: </label>
-                  <input
-                    placeholder="johnDoe@example.com"
-                    name="name"
-                    className="form-control"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
+                  <label> Genero Musical: </label>
+                  <select
+                    class="form-select"
+                    aria-label="Default select example"
+                    value={generoMusical}
+                    onChange={(e) => setgeneroMusical(e.target.value)}
+                  >
+                    <option key={0} defaultValue>
+                      Selecione um Genero
+                    </option>
+                    {Genres.map(function (object, i) {
+                      return (
+                        <option key={object.a} value={object.a}>
+                          {object.b}
+                        </option>
+                      );
+                    })}
+                  </select>
                 </div>
-                <br />
-                <div className="form-group">
-                  <label> Senha: </label>
-                  <input
-                    
-                    type="password"
-                    name="password"
-                    className="form-control"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
+
                 <br />
                 <div className="form-group">
                   <label> Data de criação: </label>
@@ -116,36 +148,37 @@ const BandCreate = () => {
                     placeholder="Name"
                     name="date"
                     className="form-control"
-                    value={date}
-                    onChange={(e) => setDate(e.target.value)}
+                    value={dataCriacao}
+                    onChange={(e) => setdataCriacao(e.target.value)}
                   />
                 </div>
                 <br />
-                <div className="form-check">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    id="flexCheckDefault"
-                    onChange={(e) => {setVerified(
-                      document.getElementById("flexCheckDefault").checked
-                    );}}
-                  />
-                  <label class="form-check-label" for="flexCheckDefault">
-                    Verificado
-                  </label>
 
-                  {/* <input
-                    type="checkbox"
-                    placeholder="Name"
-                    className="form-check-input"
-                    value=""
-                    id="flexCheckDefault"
-                    onChange={(e) => setName(e.target.value)}
-                  /> */}
+                <div className="form-group">
+                  <label> Status: </label>
+                  <select
+                    class="form-select"
+                    aria-label="Default select example"
+                    value={status}
+                    onChange={(e) => setstatus(e.target.value)}
+                  >
+                    <option key={0} defaultValue>
+                      Selecione um Status
+                    </option>
+                    {Statuses.map(function (object, i) {
+                      return (
+                        <option key={object.a} value={object.a}>
+                          {object.b}
+                        </option>
+                      );
+                    })}
+                  </select>
                 </div>
+                
+
                 <br />
                 <button className="btn btn-success" onClick={saveBand}>
-                  Adicionar
+                  Atualizar
                 </button>
               </form>
             </div>

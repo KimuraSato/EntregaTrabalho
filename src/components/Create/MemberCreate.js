@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 //                   <td>{member.nome}</td>
 //                   <td>{member.nomeArtistico}</td>
 //                   <td>
-//                     {bands.map(function (object, i) {
+//                     {Bands.map(function (object, i) {
 //                       if (object.id == member.idBanda) {
 //                         return object.nome;
 //                       }
@@ -31,7 +31,7 @@ const MemberCreate = () => {
   const [dataEntrada, setdataEntrada] = useState("");
   const [dataNascimento, setdataNascimento] = useState("");
 
-  const [bands, setBands] = useState([]);
+  const [Bands, setBands] = useState([]);
   const navigate = useNavigate();
 
 
@@ -110,7 +110,7 @@ const MemberCreate = () => {
                     <option key={0} defaultValue>
                       Selecione uma banda
                     </option>
-                    {bands.map(function (object, i) {
+                    {Bands.map(function (object, i) {
                       return (
                         <option key={i + 1} value={object.id}>
                           {object.nome}
@@ -168,7 +168,7 @@ const MemberCreate = () => {
                 </div>
                 <br />
                 <div className="form-group">
-                  <label> Data de criação: </label>
+                  <label> Data de Nascimento: </label>
                   <input
                     type="date"
                     placeholder="Name"
