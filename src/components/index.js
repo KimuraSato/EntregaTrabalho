@@ -20,9 +20,9 @@ const IndexComponent = () => {
             🤝 Patrocínios
           </a>
 
-          <button className="btn btn-secondary btn-lg" disabled>
-            🎭 Shows (Em breve)
-          </button>
+          <a href="/shows" className="btn btn-primary btn-lg">
+            🎭 Shows
+          </a>
 
           <button className="btn btn-secondary btn-lg" disabled>
             🎬 Produtoras (Em breve)

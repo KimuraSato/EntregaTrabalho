@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {ShowService,CountryService} from "../../services";
+import { ShowService, CountryService } from "../../services";
 import { useNavigate, useParams } from "react-router-dom";
 
 
@@ -7,42 +7,42 @@ import { useNavigate, useParams } from "react-router-dom";
 const ShowUpdate = () => {
   const [Countries, setCountries] = useState([]);
   const { id } = useParams();
-    const [nome, setnome] = useState("");
-    const [data, setdata] = useState("");
-    const [horarioInicio, sethorarioInicio] = useState("");
-    const [horarioFim, sethorarioFim] = useState("");
-    const [nacao, setnacao] = useState("");
-    const [descricao, setdescricao] = useState("");
+  const [nome, setnome] = useState("");
+  const [data, setdata] = useState("");
+  const [horarioInicio, sethorarioInicio] = useState("");
+  const [horarioFim, sethorarioFim] = useState("");
+  const [nacao, setnacao] = useState("");
+  const [descricao, setdescricao] = useState("");
 
   const [bands, setBands] = useState([]);
-  
+
   const navigate = useNavigate();
 
   useEffect(() => {
     ShowService.getShowById(id).then((res) => {
       const Show = res.data;
-      
+
       setnome(Show.nome);
       setdata(Show.data);
       sethorarioInicio(Show.horarioInicio);
       sethorarioFim(Show.horarioFim);
       setnacao(Show.nacao);
       setdescricao(Show.descricao);
-   
+
     });
   }, [id]);
 
   useEffect(() => {
-      CountryService.getCountryPairs().then((res) => {
-        setCountries(res.data);
-      });
-    }, []);
+    CountryService.getCountryPairs().then((res) => {
+      setCountries(res.data);
+    });
+  }, []);
 
 
   const updateShow = (e) => {
     e.preventDefault();
-    
-    
+
+
     const Show = {
       id,
       nome,
@@ -51,7 +51,7 @@ const ShowUpdate = () => {
       horarioFim,
       nacao,
       descricao,
-    }; 
+    };
     ShowService.updateShow(Show, id).then(() => {
       navigate("/shows");
     });
@@ -62,7 +62,7 @@ const ShowUpdate = () => {
       <div className="container">
         <div className="row">
           <div className="card col-md-6 offset-md-3 offset-md-3">
-            <h3 className="text-center">Atualizar Integrante</h3>
+            <h3 className="text-center">Atualizar Show</h3>
             <div className="card-body">
               <form>
                 <div className="form-group">
