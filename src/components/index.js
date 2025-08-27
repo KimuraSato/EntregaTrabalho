@@ -24,9 +24,9 @@ const IndexComponent = () => {
             🎭 Shows
           </a>
 
-          <button className="btn btn-secondary btn-lg" disabled>
-            🎬 Produtoras (Em breve)
-          </button>
+          <a href="/producers" className="btn btn-primary btn-lg">
+            🎬 Produtoras
+          </a>
         </div>
       </div>
     </div>

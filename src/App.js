@@ -3,13 +3,13 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import IndexComponent from './components';
 
 //Create
-import { BandCreate, MemberCreate, SponsorCreate,ShowCreate}from './components/Create';
+import { BandCreate, MemberCreate, SponsorCreate,ShowCreate, ProducerCreate}from './components/Create';
 
 //Read & delete
-import { BandList, MemberList, ShowList, SponsorList } from "./components/List";
+import { BandList, MemberList, ShowList, SponsorList, ProducerList} from "./components/List";
 
 //Update
-import { BandUpdate, MemberUpdate, SponsorUpdate, ShowUpdate } from './components/Update';
+import { BandUpdate, MemberUpdate, SponsorUpdate, ShowUpdate, ProducerUpdate} from './components/Update';
 
 const App = () => {
   return (
@@ -43,10 +43,10 @@ const App = () => {
             <Route path="update/:id" element={<ShowUpdate />} />
           </Route>
           <Route path="producers">
-            <Route path="/producers" element={<BandList />} />
-            <Route path="list" element={<BandList />} />
-            <Route path="add" element={<BandCreate />} />
-            <Route path="update/:id" element={<BandUpdate />} />
+            <Route path="/producers" element={<ProducerList />} />
+            <Route path="list" element={<ProducerList />} />
+            <Route path="add" element={<ProducerCreate />} />
+            <Route path="update/:id" element={<ProducerUpdate />} />
           </Route>
         </Routes>
       </div>

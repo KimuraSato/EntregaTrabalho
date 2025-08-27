@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { SponsorService , BandService } from "../../services";
+import { ProducerService , BandService } from "../../services";
 import { useNavigate } from "react-router-dom";
 
 
@@ -11,21 +11,21 @@ import { useNavigate } from "react-router-dom";
     String contatoOficial;
  */
 
-const SponsorCreate = () => {
-  const [Bands, setBands] = useState([]);
+const ProducerCreate = () => {
   const [nome, setnome] = useState("");
-  const [idBanda, setidBanda] = useState(0);
-  const [cpf, setcpf] = useState(0);
-  const [contatoOficial, setcontatoOficial] = useState("");
+  const [email, setemail] = useState(""); 
+  const [cpfcnpj, setcpfcnpj] = useState(0);
+  const [site, setsite] = useState(""); 
+  const [telefone, settelefone] = useState(0);
 
   const navigate = useNavigate();
 
-  const saveSponsor = (e) => {
+  const saveProducer = (e) => {
     e.preventDefault();
     
-    const Sponsor = { nome, idBanda, cpf, contatoOficial }; 
-    SponsorService.createSponsor(Sponsor).then(() => {
-      navigate("/sponsors");
+    const Producer = { nome, email, cpfcnpj, site, telefone}; 
+    ProducerService.createProducer(Producer).then(() => {
+      navigate("/producers");
     });
   };
 
@@ -41,7 +41,7 @@ const SponsorCreate = () => {
       <div className="container">
         <div className="row">
           <div className="card col-md-6 offset-md-3 offset-md-3">
-            <h3 className="text-center">Adicionar Patrocinio</h3>
+            <h3 className="text-center">Adicionar Produtora</h3>
             <div className="card-body">
               <form>
                 <div className="form-group">
@@ -56,51 +56,56 @@ const SponsorCreate = () => {
                 </div>
                 <br />
                 <div className="form-group">
-                  <label> Banda: </label>
-                  <select
-                    class="form-select"
-                    aria-label="Default select example"
-                    value={idBanda}
-                    onChange={(e) => setidBanda(e.target.value)}
-                  >
-                    <option key={0} defaultValue>
-                      Selecione uma banda
-                    </option>
-                    {Bands.map(function (object, i) {
-                      return (
-                        <option key={i + 1} value={object.id}>
-                          {object.nome}
-                        </option>
-                      );
-                    })}
-                  </select>
+                  <label> Email: </label>
+                  <input
+                    placeholder="Email"
+                    name="email"
+                    className="form-control"
+                    value={email}
+                    onChange={(e) => setemail(e.target.value)}
+                  />
                 </div>
                 <br />
                 <div className="form-group">
-                  <label> CPF: </label>
+                  <label> CPF/CNPJ: </label>
                   <input
                     placeholder="000.000.000-00"
                     type="number"
                     name="name"
                     className="form-control"
-                    value={cpf}
-                    onChange={(e) => setcpf(e.target.value)}
+                    value={cpfcnpj}
+                    onChange={(e) => setcpfcnpj(e.target.value)}
                   />
                 </div>
 
                 <br />
                 <div className="form-group">
-                  <label> contatoOficial: </label>
+                  <label> Contato Oficial: </label>
                   <input
+                    type="number"
                     placeholder="Contato"
                     name="contato"
                     className="form-control"
-                    value={contatoOficial}
-                    onChange={(e) => setcontatoOficial(e.target.value)}
+                    value={telefone}
+                    onChange={(e) => settelefone(e.target.value)}
                   />
                 </div>
+
                 <br />
-                <button className="btn btn-success" onClick={saveSponsor}>
+
+                <div className="form-group">
+                  <label> Site: </label>
+                  <input
+                    placeholder="Site"
+                    name="site"
+                    className="form-control"
+                    value={site}
+                    onChange={(e) => setsite(e.target.value)}
+                  />
+                </div>
+
+                <br />
+                <button className="btn btn-success" onClick={saveProducer}>
                   Adicionar
                 </button>
               </form>
@@ -112,4 +117,4 @@ const SponsorCreate = () => {
   );
 };
 
-export default SponsorCreate;
+export default ProducerCreate;
