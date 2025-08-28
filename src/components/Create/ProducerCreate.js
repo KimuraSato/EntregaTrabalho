@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ProducerService , BandService } from "../../services";
+import { ProducerService, BandService } from "../../services";
 import { useNavigate } from "react-router-dom";
 
 
@@ -13,28 +13,22 @@ import { useNavigate } from "react-router-dom";
 
 const ProducerCreate = () => {
   const [nome, setnome] = useState("");
-  const [email, setemail] = useState(""); 
-  const [cpfcnpj, setcpfcnpj] = useState(0);
-  const [site, setsite] = useState(""); 
+  const [email, setemail] = useState("");
+  const [cpfCnpj, setcpfCnpj] = useState(0);
+  const [site, setsite] = useState("");
   const [telefone, settelefone] = useState(0);
 
   const navigate = useNavigate();
 
   const saveProducer = (e) => {
     e.preventDefault();
-    
-    const Producer = { nome, email, cpfcnpj, site, telefone}; 
+
+    const Producer = { nome, email, cpfCnpj, site, telefone };
     ProducerService.createProducer(Producer).then(() => {
+
       navigate("/producers");
     });
   };
-
-  useEffect(() => {
-          BandService.getBands().then((res) => {
-            setBands(res.data);
-            
-          });
-        }, []);
 
   return (
     <div>
@@ -73,8 +67,8 @@ const ProducerCreate = () => {
                     type="number"
                     name="name"
                     className="form-control"
-                    value={cpfcnpj}
-                    onChange={(e) => setcpfcnpj(e.target.value)}
+                    value={cpfCnpj}
+                    onChange={(e) => setcpfCnpj(e.target.value)}
                   />
                 </div>
 

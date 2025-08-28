@@ -11,6 +11,7 @@ const ProducerList = () => {
     });
   }, []);
 
+
   return (
     <div>
       <h2 className="text-center">Lista de Produtoras</h2>
